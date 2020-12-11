@@ -4,7 +4,7 @@ import 'react-dual-listbox/lib/react-dual-listbox.css';
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
  
 class Backpack_V2 extends Component {
     state = {
@@ -27,6 +27,66 @@ class Backpack_V2 extends Component {
         this.setState({ selected });
     };
     
+    handleToggle = (e) => {
+            if(this.state[e.target.id] === true){
+                var array = [...this.state.selected]
+                console.log(array)
+                var index = array.indexOf([e.target.id][0].split("_")[0])
+                console.log([e.target.id][0].split("_")[0])
+                console.log(index)
+                if(index !== -1){
+                    array.splice(index, 1)
+                    this.setState({
+                        [e.target.id]: false,
+                        selected: array
+                    },() => {console.log(this.state)})
+                }
+            }
+            else {
+                this.setState({
+                    [e.target.id]: true,
+                    selected: [...this.state.selected, [e.target.id][0].split("_")[0]]
+                },() => {console.log(this.state)})
+            }
+            
+    };
+
+    getGearDropdown = (gear, geararr) => {
+        return (
+            <div class="card-group">
+                <div className="card">
+                    { gear && gear.map(item => {
+                        return(
+                            <div>
+                                <div className="card-header collapsed" aria-expanded="false" data-toggle="collapse" href={"#collapse" + item.item}>
+                                    <h4 className="card-title">
+                                        { item.item }
+                                        <span><i class="fas fa-chevron-circle-down pull-right"></i></span>
+                                    </h4>
+                                </div>
+                                <div id={"collapse" + item.item} class="collapse">
+                                    <ul className="list-group">
+                                        { geararr && geararr.map(ownItem => {
+                                            if(ownItem.type.toLocaleUpperCase() === item.item.toLocaleUpperCase()){
+                                                return(
+                                                    <li id={`${ownItem.id}_isActive`} className={`list-group-item ${this.state[ownItem.id+"_isActive"] ? "active" : ""}`} onClick={this.handleToggle}>
+                                                        { ownItem.label} 
+                                                        <span class={`${this.state[ownItem.id+"_isActive"] ? "far fa-check-square pull-right" : "far fa-square pull-right"}`} aria-hidden="true"></span>
+                                                    </li>
+                                                )
+                                            }
+                                        })}
+                                    </ul>
+                                </div>
+                            </div>
+                        )
+                    })}
+                   
+                </div>
+            </div>
+        )
+    }
+
     calculate = (selected, gear) => {
         var currentSelection = selected
         var newSelection = []
@@ -113,6 +173,8 @@ class Backpack_V2 extends Component {
     componentDidMount() {
         window.scrollTo(0, 0)
     }
+
+    
     render() {
         const { selected } = this.state;
         const { gear, auth } = this.props
@@ -132,21 +194,16 @@ class Backpack_V2 extends Component {
         return (
             <div>
                 <img id="togglenavimage" className="header-image" src="Image_placeholder_1920_650.jpg" alt="BootsOn"></img>
-                <h1 className="text-center green">BACKPACK ORGANISER</h1>
-                <br />
-                <div className="container">
-                    <br />
-                    <div className="row">
-                        <h5 className="green">Gear</h5>
-                        <h5 className="offset-md-6 green">Backpack</h5>
+                <h1 className="text-center green py-3">BACKPACK ORGANISER</h1>
+                <h4 className="text-center">Virtually pack your bag here by selecting the items you wish to take on your trip!</h4>
+                <p className="text-center">Can't find your item? Head to the <a href="/Gear">Gear</a> page to add your item to your inventory</p>
+                
+                <div className="container-fluid section">
+                    <div className="offset-md-2 col-md-8 col pb-3">
+                        { this.getGearDropdown(this.state.arr, geararr) }
                     </div>
-                    <DualListBox
-                        canFilter
-                        options={geararr}
-                        selected={selected}
-                        onChange={this.onChange}
-                    />                    
                 </div>
+
                 <div className="container-fluid section">
                     { this.calculate(selected, gear) }
                     <div className="text-center">
@@ -155,30 +212,33 @@ class Backpack_V2 extends Component {
                     </div>
                     <div className="row offset-md-1 col-md-10 col-sm-12">
                         <div className="col-md-6 col-sm-12">
-                        <h3 className="text-center">Pack Weight(kg)</h3>
-                            <BarChart width={450} height={200} data={this.state.arr} key={Math.random()}>
-                                <XAxis dataKey="item" />
-                                <YAxis dataKey={varFromState} />
-                                <Tooltip />
-                                <Legend />
-                                <CartesianGrid stroke={"#f5f5f5"} />
-                                <Bar dataKey="weight" fill="#31A3DD" />
-                            </BarChart>
+                            <h3 className="text-center">Pack Weight(kg)</h3>
+                            <ResponsiveContainer width="100%" height="80%">
+                                <BarChart  data={this.state.arr} key={Math.random()}>
+                                    <XAxis dataKey="item" />
+                                    <YAxis dataKey={varFromState} />
+                                    <Tooltip />
+                                    <Legend />
+                                    <CartesianGrid stroke={"#f5f5f5"} />
+                                    <Bar dataKey="weight" fill="#31A3DD" />
+                                </BarChart>
+                            </ResponsiveContainer>
                         </div>
                         <div className="col-md-6 col-sm-12">
-                        <h3 className="text-center">Pack Items</h3>
-                            <BarChart width={450} height={200} data={this.state.arr} key={Math.random()}>
-                                <XAxis dataKey="item" />
-                                <YAxis dataKey={varFromState} />
-                                <Tooltip />
-                                <Legend />
-                                <CartesianGrid stroke={"#f5f5f5"} />
-                                <Bar dataKey="quantity" fill="#31A3DD" />
-                            </BarChart>
+                            <h3 className="text-center">Pack Items</h3>
+                            <ResponsiveContainer width="100%" height="80%">
+                                <BarChart data={this.state.arr} key={Math.random()}>
+                                    <XAxis dataKey="item" />
+                                    <YAxis dataKey={varFromState} />
+                                    <Tooltip />
+                                    <Legend />
+                                    <CartesianGrid stroke={"#f5f5f5"} />
+                                    <Bar dataKey="quantity" fill="#31A3DD" />
+                                </BarChart>
+                            </ResponsiveContainer>
                         </div>
                     </div>
                 </div>
-                {/*<DrawGraph data={this.state.arr} type="BAR" bkgColor="#f5f5f5" color="#31A3DD" width={650} height={250} interval="preserveStartEnd" varFromState={Math.random()}/> */}
             </div>
         );
     }

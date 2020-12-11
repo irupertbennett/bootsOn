@@ -175,6 +175,11 @@ class EditDetails extends Component {
                                 }}
                             />
                         </div>
+                        {/*Preview pane */}
+                        {/* <div className="form-group col-md-10 offset-md-1">
+                            <label htmlFor="firstName">Preview</label>
+                            <div className="img-preview" style={{ width: "100%", float: "left", height: "300px", overflow: "hidden" }}></div>
+                        </div> */}
                         <div className="form-group col-md-10 offset-md-1">
                             <label htmlFor="firstName">First Name</label>
                             <input disabled className="form-control" type="text" id="firstName" defaultValue={this.props.location.state.details.firstName} onChange={ this.handleChange } />

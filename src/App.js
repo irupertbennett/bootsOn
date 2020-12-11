@@ -23,6 +23,7 @@ import Loading from './components/Loading';
 import EditDetails from './components/EditDetails';
 import LogDetails from './components/LogDetails';
 import PhotoEditor from './components/PhotoEditor';
+import withSplashScreen from './components/withSplashScreen'
 
 function App() {
   return (
@@ -60,4 +61,4 @@ function App() {
   );
 }
 
-export default App;
+export default withSplashScreen(App);

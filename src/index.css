@@ -158,6 +158,14 @@ main {
   border-radius: 50%;
 }
 
+.img-preview{
+  border-radius: 50%;
+}
+
+.cropper-face.cropper-move{
+  border-radius: 50%;
+  border: 5px solid black;
+}
 @keyframes spinnerOne {
   0% { transform: rotate(0deg); border-width: 10px;}
   50% { transform: rotate(180deg); border-width: 1px;}
