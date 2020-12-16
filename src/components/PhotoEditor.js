@@ -10,7 +10,7 @@ class PhotoEditor extends Component {
     }
     
     _crop() {
-        console.log(this.cropper.getCroppedCanvas().toDataURL());
+        //console.log(this.cropper.getCroppedCanvas().toDataURL());
     }
  
     onCropperInit(cropper) {
@@ -38,7 +38,7 @@ class PhotoEditor extends Component {
         if (typeof this.state.cropper !== "undefined") {
             this.setState({
                 cropData: this.state.cropper.getCroppedCanvas().toDataURL()
-            }, () => console.log(this.state))
+            })
             
             
         }

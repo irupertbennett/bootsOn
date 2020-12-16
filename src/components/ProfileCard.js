@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export class ProfileCard extends Component {
     render() {
         const { profile } = this.props
-        var firstName, lastName, city, email, imageUrl, id = null
+        var firstName, lastName, city, email, imageUrl = null
         firstName = (profile.firstName ? profile.firstName.toUpperCase() : "")
         lastName = (profile.lastName ? profile.lastName.toUpperCase() : "")
         city = (profile.city ? profile.city.substring(0,1).toUpperCase() + profile.city.substring(1, profile.city.length) : "")
@@ -13,7 +13,7 @@ export class ProfileCard extends Component {
         return (
             <div className="offset-md-1 col-md-10 pb-4">
                 <div className="d-none d-sm-block text-center">
-                    <div class="row">
+                    <div className="row">
                         <div className="col offset-sm-5 col-sm-2">
                             <img id="togglenavimage" className="profile-picture img-fluid" src={ imageUrl } alt="BootsOn" ></img>
                         </div>

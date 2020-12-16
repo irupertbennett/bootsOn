@@ -187,8 +187,8 @@ class gear extends Component {
             }
             this.props.addGear(gear)
         }
-        else
-            console.log("Error")
+        //else
+            //console.log("Error")
     }
     handleRemoveGear = (id) => {
         if(id != null){
@@ -232,7 +232,6 @@ class gear extends Component {
         return geararr && geararr.map((item, index) => {
             return <tr id={item.id}>
                 <th scope="row">{index+1}</th>
-                {/*<td>{item.type.substring(0,1).toUpperCase() + item.type.substring(1,item.type.length)}</td>*/}
                 {this.getIcon(item.type)}
                 <td>{item.make}</td>
                 <td>{item.model}</td>
@@ -289,7 +288,7 @@ class gear extends Component {
     getIcon(activity){
         if(activity === "sleeping")
             return <BedIcon />
-        else if (activity === "tent-tarp")
+        else if (activity === "tents-tarps")
             return <TentIcon />
         else if (activity === "bags")
             return <BagIcon />
@@ -324,7 +323,7 @@ class gear extends Component {
         return (
             <div>
                 <img id="togglenavimage" className="header-image" src="Image_placeholder_1920_650.jpg" alt="BootsOn" ></img>
-                <h1 className="text-center green">My Gear</h1>
+                <h1 className="text-center green  pt-3">My Gear</h1>
                 <div className="section">
                 <br />
                     <div className="container">

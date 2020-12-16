@@ -7,11 +7,14 @@ import moment from 'moment'
 
 class ActivitySummary extends Component {
     getStats(activities, type) {
-        console.log(activities)
-        var duration = 0
+        var days = 0
+        var hours = 0
+        var minutes = 0
+        var seconds = 0
         var distance = 0
         var totalActivities = 0
-        const lastWeek = moment().subtract(7, 'days').format('YYYY-MM-DD');
+        var totalSeconds = 0
+        //const lastWeek = moment().subtract(7, 'days').format('YYYY-MM-DD');
         const today = moment().format('YYYY-MM-DD');
         const thisMonth = moment().format('YYYY-MM');
 
@@ -21,23 +24,59 @@ class ActivitySummary extends Component {
                 { activities && activities.map(activity => {
                     const activityMonth = moment(activity.date).format('YYYY-MM')
                     if((activity.activity === type) && (activityMonth == thisMonth) && (activity.date <= today)){
-                        duration += parseInt(activity.duration)
+                        totalSeconds += parseInt(activity.days)
+                        totalSeconds += parseInt(activity.hours)
+                        totalSeconds += parseInt(activity.minutes)
+                        totalSeconds += parseInt(activity.seconds)
+                        {/* days += (parseInt(activity.days) / 86400)
+                        hours += parseInt(activity.hours) / 3600
+                        minutes += parseInt(activity.minutes) / 60
+                        seconds += parseInt(activity.seconds) */}
                         totalActivities += 1;
+                        distance += parseFloat(activity.distance)
                     }
+                    days = totalSeconds / 86400
+                    hours = (totalSeconds - (Math.trunc(days) * 86400)) / 3600
+                    minutes = (totalSeconds - (Math.trunc(days) * 86400) - (Math.trunc(hours) * 3600)) / 60
+                    seconds = (totalSeconds - (Math.trunc(days) * 86400) - (Math.trunc(hours) * 3600) - (Math.trunc(minutes) * 60))
                 })}
-                <div className="row">
-                    <div className="offset-md-3 col-md-2">
-                        <p className="text-center">Total Activities</p>
+                <div className="row pt-3">
+                    <div className="offset-md-2 col-md-2">
+                        <h5 className="text-center">Total Activities</h5>
                         <h1 className="text-center"> { totalActivities } </h1>
-                        <p className="text-center"></p>
+                        <p className="text-center">Recorded</p>
                     </div>
-                    <div className="col-md-2">
-                        <p className="text-center">Total Duration</p>
-                        <h1 className="text-center"> { duration } </h1>
-                        <p className="text-center">Hours</p>
+                    <div className="offset-md-1 col-md-2">
+                        <h5 className="text-center">Total Duration</h5>
+                        <div className="row">
+                            <div className="col-md-3">
+                                <div className="text-center">
+                                    <h1 className="text-center"> { Math.trunc(days) > 0 ? Math.trunc(days) : 0 } </h1>
+                                    <p>Days</p>
+                                </div>
+                            </div>
+                            <div className="col-md-3 text-center">
+                                <div className="text-center">
+                                    <h1 className="text-center"> { Math.trunc(hours) > 0 ? Math.trunc(hours) : 0 } </h1>
+                                    <p>Hours</p>
+                                </div>
+                            </div>
+                            <div className="col-md-3">
+                                <div className="text-center">
+                                    <h1 className="text-center"> { Math.trunc(minutes) > 0 ? Math.trunc(minutes) : 0 } </h1>
+                                    <p>Mins</p>
+                                </div>
+                            </div>
+                            <div className="col-md-3">
+                                <div className="text-center">
+                                    <h1 className="text-center"> { Math.trunc(seconds) > 0 ? Math.trunc(seconds) : 0 } </h1>
+                                    <p>Seconds</p>
+                                </div>
+                            </div>
+                        </div>                      
                     </div>
-                    <div className="col-md-2">
-                        <p className="text-center">Total Distance</p>
+                    <div className="offset-md-1 col-md-2">
+                        <h5 className="text-center">Total Distance</h5>
                         <h1 className="text-center"> { distance } </h1>
                         <p className="text-center">Miles</p>
                     </div>

@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-import moment from 'moment'
 import Footsteps from './Loaders/Footsteps'
 
 const LogDetails = (props) => {
@@ -13,7 +12,6 @@ const LogDetails = (props) => {
             activity = a
         }
     })
-    console.log(activity)
     if(activity){
         return(
             <div className="container project-details">

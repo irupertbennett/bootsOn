@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 class SiteMap extends Component {
     render() {
-        console.log(this.props.activities)
         return (
             <div className="container-fluid pt-4 site-map text-center">
                 <div className="row offset-md-2 col-md-8">

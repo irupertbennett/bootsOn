@@ -8,10 +8,10 @@ const initState = {
 const accountReducer = (state = initState, action) => {
     switch(action.type){
         case 'UPDATE_DETAILS':
-            console.log("created")
+            //console.log("created")
             return state;
         case 'UPDATE_DETAILS_ERROR':
-            console.log("error")
+            //console.log("error")
             return state;
         default:
             return state;

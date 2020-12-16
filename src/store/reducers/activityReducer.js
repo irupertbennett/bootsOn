@@ -9,28 +9,28 @@ const initState = {
 const activityReducer = (state = initState, action) => {
     switch(action.type){
         case 'CREATE_ACTIVITY':
-            console.log("created", action.activity)
+            //console.log("created", action.activity)
             return state;
         case 'CREATE_PROJECT_ERROR':
-            console.log("error", action.error)
+            //console.log("error", action.error)
             return state;
         case 'DELETE_LOG':
-            console.log("deleted", action.log)
+            //console.log("deleted", action.log)
             return state;
         case 'DELETE_LOG_ERROR':
-            console.log("delete error", action.error)
+            //console.log("delete error", action.error)
             return state;
         case 'UPDATE_LOG':
-            console.log("deleted", action.log)
+            //console.log("deleted", action.log)
             return state;
         case 'UPDATE_LOG_ERROR':
-            console.log("update error", action.error)
+            //console.log("update error", action.error)
             return state;
         case 'ADD_PRODUCT':
-            console.log("Added", action.product)
+            //console.log("Added", action.product)
             return state;
         case 'ADD_PRODUCT_ERROR':
-            console.log("added error", action.error)
+            //console.log("added error", action.error)
             return state;
         default:
             return state;

@@ -14,7 +14,6 @@ class ResetPassword extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state.emailVerified)
         this.props.resetPassword(this.state.email);
     }
     render() {

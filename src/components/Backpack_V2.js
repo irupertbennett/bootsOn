@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DualListBox from 'react-dual-listbox';
+//import DualListBox from 'react-dual-listbox';
 import 'react-dual-listbox/lib/react-dual-listbox.css';
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -30,30 +30,27 @@ class Backpack_V2 extends Component {
     handleToggle = (e) => {
             if(this.state[e.target.id] === true){
                 var array = [...this.state.selected]
-                console.log(array)
                 var index = array.indexOf([e.target.id][0].split("_")[0])
-                console.log([e.target.id][0].split("_")[0])
-                console.log(index)
                 if(index !== -1){
                     array.splice(index, 1)
                     this.setState({
                         [e.target.id]: false,
                         selected: array
-                    },() => {console.log(this.state)})
+                    })
                 }
             }
             else {
                 this.setState({
                     [e.target.id]: true,
                     selected: [...this.state.selected, [e.target.id][0].split("_")[0]]
-                },() => {console.log(this.state)})
+                })
             }
             
     };
 
     getGearDropdown = (gear, geararr) => {
         return (
-            <div class="card-group">
+            <div className="card-group">
                 <div className="card">
                     { gear && gear.map(item => {
                         return(
@@ -61,17 +58,17 @@ class Backpack_V2 extends Component {
                                 <div className="card-header collapsed" aria-expanded="false" data-toggle="collapse" href={"#collapse" + item.item}>
                                     <h4 className="card-title">
                                         { item.item }
-                                        <span><i class="fas fa-chevron-circle-down pull-right"></i></span>
+                                        <span><i className="fas fa-chevron-circle-down pull-right"></i></span>
                                     </h4>
                                 </div>
-                                <div id={"collapse" + item.item} class="collapse">
+                                <div id={"collapse" + item.item} className="collapse">
                                     <ul className="list-group">
                                         { geararr && geararr.map(ownItem => {
                                             if(ownItem.type.toLocaleUpperCase() === item.item.toLocaleUpperCase()){
                                                 return(
-                                                    <li id={`${ownItem.id}_isActive`} className={`list-group-item ${this.state[ownItem.id+"_isActive"] ? "active" : ""}`} onClick={this.handleToggle}>
+                                                    <li key={ownItem.id} id={`${ownItem.id}_isActive`} className={`list-group-item ${this.state[ownItem.id+"_isActive"] ? "active" : ""}`} onClick={this.handleToggle}>
                                                         { ownItem.label} 
-                                                        <span class={`${this.state[ownItem.id+"_isActive"] ? "far fa-check-square pull-right" : "far fa-square pull-right"}`} aria-hidden="true"></span>
+                                                        <span id={`${ownItem.id}_isActive`} className={`${this.state[ownItem.id+"_isActive"] ? "far fa-check-square pull-right" : "far fa-square pull-right"}`} aria-hidden="true" onClick={this.handleToggle}></span>
                                                     </li>
                                                 )
                                             }
@@ -103,7 +100,7 @@ class Backpack_V2 extends Component {
         var arr = this.state.arr
         this.state.oldSelection = currentSelection
         if(currentSelection.length > 0){
-            if((removedSelection.length == 0) && (newSelection.length > 0)){
+            if((removedSelection.length === 0) && (newSelection.length > 0)){
                 newSelection && newSelection.map((id) => {
                     gear && gear.map((item) => {
                         if(item.id === id) {
@@ -117,7 +114,7 @@ class Backpack_V2 extends Component {
                         }
                     })
                 })
-            } else if ((removedSelection.length > 0) && (newSelection.length == 0)){
+            } else if ((removedSelection.length > 0) && (newSelection.length === 0)){
                 removedSelection && removedSelection.map((id) => {
                     gear && gear.map((item) => {
                         if(item.id === id) {
@@ -177,7 +174,7 @@ class Backpack_V2 extends Component {
     
     render() {
         const { selected } = this.state;
-        const { gear, auth } = this.props
+        const { gear } = this.props
         var geararr = []
         var { varFromState } = this.state.d
         

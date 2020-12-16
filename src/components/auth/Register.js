@@ -89,27 +89,27 @@ class Register extends Component {
                     <h3 className="text-center">Welcome! Register an account to get started</h3>
                     <div className="form-group col-md-10 offset-md-1">
                         <label htmlFor="email"><span className="auth-error">*</span>Email</label>
-                        <input className="form-control" type="email" id='email' onChange={this.handleChange} />
+                        <input className="form-control" type="email" id='email' autoComplete="on" onChange={this.handleChange} />
                         <div className="text-danger">{this.state.errors.email}</div>
                     </div>
                     <div className="form-group col-md-10 offset-md-1">
                         <label htmlFor="password"><span className="auth-error">*</span>Password</label>
-                        <input className="form-control" type="password" id='password' onChange={this.handleChange} required="required"/>
+                        <input className="form-control" type="password" id='password' autoComplete="on"  onChange={this.handleChange} required="required"/>
                         <div className="text-danger">{this.state.errors.password}</div>
                     </div>
                     <div className="form-group col-md-10 offset-md-1">
                         <label htmlFor="password"><span className="auth-error">*</span>Retype Password</label>
-                        <input className="form-control" type="password" id='confirmPassword' onChange={this.handleChange} />
+                        <input className="form-control" type="password" id='confirmPassword' autoComplete="on" onChange={this.handleChange} />
                         <div className="text-danger">{this.state.errors.confirmPassword}</div>
                     </div>
                     <div className="form-group col-md-10 offset-md-1">
                         <label htmlFor="firstName">First Name</label>
-                        <input className="form-control" type="text" id='firstName' onChange={this.handleChange} />
+                        <input className="form-control" type="text" id='firstName' autoComplete="on" onChange={this.handleChange} />
                         <div className="text-danger">{this.state.errors.firstName}</div>
                     </div>
                     <div className="form-group col-md-10 offset-md-1">
                         <label htmlFor="lastName">Last Name</label>
-                        <input className="form-control" type="text" id='lastName' onChange={this.handleChange} />
+                        <input className="form-control" type="text" id='lastName' autoComplete="on" onChange={this.handleChange} />
                         <div className="text-danger">{this.state.errors.lastName}</div>
                     </div>
                     <div className="form-group text-center">

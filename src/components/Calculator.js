@@ -9,7 +9,6 @@ class calculator extends Component {
         window.scrollTo(0, 0)
     }
     render() {
-        console.log(this.props)
         const { products, auth } = this.props
         const makes = []
         if(!auth.emailVerified) return <Redirect to='/SignIn' />
@@ -32,7 +31,6 @@ class calculator extends Component {
                             {product.items && product.items.map((item, index) => {
                             if(makes.indexOf(item.Make) === -1){
                                 makes.push(item.Make)
-                                console.log("adding" + item.Make)
                             }
                             })}
                             </> 

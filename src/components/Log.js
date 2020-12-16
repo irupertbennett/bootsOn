@@ -47,7 +47,6 @@ class log extends Component {
         const { activities, auth } = this.props
         if(!auth.emailVerified) return <Redirect to='/SignIn' />
         const items = activities && activities.filter((data)=>{
-
             if((this.state.searchActivity == null) || (this.state.searchActivity === "All")){
                 return data
             } 
@@ -55,14 +54,18 @@ class log extends Component {
                     return data
             }
         }).map((data,index)=>{
+            var days = data.days / 86400
+            var hours = data.hours / 3600
+            var minutes = data.minutes / 60
+
             return(
-            <tr id={data.id }>
+            <tr key={data.id} id={data.id}>
                     <th scope="row">{ index+1 }</th>
                     <td>{ this.getIcon(data.activity) }</td>
                     <td>{data.location}</td>
                     <td>{data.route}</td>
-                    <td>{data.duration}</td>
-                    <td>{data.camping === 0 ? "No" : "Yes"}</td>
+                    <td>{days > 0? days + " days" : null} {days > 0 ? hours > 0 ? hours + " hours" : null : hours > 0 ? hours + " hours" : null} {minutes > 0 ? minutes + " minutes" : null} {data.seconds > 0 ? data.seconds + " seconds": null}</td>
+                    <td>{data.camping === true ? "Yes" : "No"}</td>
                     <td>{data.bagWeight}</td>
                     <td>{moment(data.date).format('DD-MM-YYYY')}</td>
                     <td>{data.distance}</td>
@@ -74,7 +77,7 @@ class log extends Component {
         return (
             <div>
                 <img id="togglenavimage" className="header-image" src="Image_placeholder_1920_650.jpg" alt="BootsOn" ></img>
-                <h1 className="text-center green">LOGS</h1>
+                <h1 className="text-center green pt-3">LOGS</h1>
                 <div className="">
                     <div className="container pt-3">
                         <label className="green"><b>FILTER LOGS</b></label>

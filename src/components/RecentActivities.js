@@ -19,9 +19,9 @@ class RecentActivities extends Component {
     render() {
         var activities = this.props.activities? this.props.activities.map((activity) => {
             return (
-                <tr>
+                <tr key={activity.id}>
                     <td>{ this.getIcon(activity.activity) }</td>
-                    <Link to={"/logDetails/" + activity.id} className=""><td className="pl-4 text-white">{activity.location}</td></Link>
+                    <Link to={"/logDetails/" + activity.id}><td className="pl-4 text-white">{activity.location}</td></Link>
                 </tr>
                     
             )
@@ -31,9 +31,7 @@ class RecentActivities extends Component {
                 <div className="offset-md-1 col-md-8">
                     <h3>RECENT ACTIVITIES</h3>
                     <table>
-                        <tbody>
-                            { activities }
-                        </tbody>
+                        <tbody>{activities}</tbody>
                     </table>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { updateDetails } from '../store/actions/accountActions'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import 'firebase/storage'
 import { storage } from '../config/fbConfig'
 import Cropper from 'react-cropper';
@@ -50,21 +50,18 @@ class EditDetails extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         this.getCropData()
-        let blob = this.state.cropper.getCroppedCanvas().toBlob(blob => {
+        this.state.cropper.getCroppedCanvas().toBlob(blob => {
             if (!blob) {
                 alert("Canvas is empty");
             }
             blob.name = this.state.file.name;
-            console.log("blob")
-            console.log(blob)
 
-            const uploadInitialImage = storage.ref("images/" + this.props.location.state.details.id + "/" + this.state.file.name.split(".")[0] + "_original").put(this.state.file);
+            storage.ref("images/" + this.props.location.state.details.id + "/" + this.state.file.name.split(".")[0] + "_original").put(this.state.file);
             const uploadTask = storage.ref("images/" + this.props.location.state.details.id + "/" + this.state.file.name.split(".")[0] + "_cropped").put(blob);
             uploadTask.on(
                 "state_changed",
                 snapshot => {},
                 error => {
-                    console.log(error);
                 },
                 () => {
                     storage
@@ -84,7 +81,6 @@ class EditDetails extends Component {
                             id: this.state.id,
                             url: this.state.url
                         }
-                        console.log(newDetails)
                         this.props.updateDetails(newDetails)
                         this.props.history.push('/account')
                     });
@@ -106,7 +102,7 @@ class EditDetails extends Component {
     }
 
     _crop() {
-        console.log(this.cropper.getCroppedCanvas().toDataURL());
+        //console.log(this.cropper.getCroppedCanvas().toDataURL());
     }
  
     onCropperInit(cropper) {
@@ -133,7 +129,7 @@ class EditDetails extends Component {
     getCropData = () => {
         this.setState({
             cropData: this.state.cropper.getCroppedCanvas().toDataURL()
-        }, () => console.log(this.state))  
+        })  
     };
 
     render() {
@@ -153,7 +149,7 @@ class EditDetails extends Component {
                                 <option value="Ms">Ms</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-10 offset-md-1">
+                        <div className="form-group col-md-10 offset-md-1">
                             <input className="py-3" type="file" onChange={this.handleImageChange} />
                             <Cropper className="col"
                                 style={{ height: 400, border: "1px solid black" }}

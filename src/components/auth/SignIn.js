@@ -26,11 +26,11 @@ class SignIn extends Component {
                     <h3 className="text-center">Sign In</h3>
                     <div className="form-group col-md-10 offset-md-1">
                         <label htmlFor="email">Email</label>
-                        <input className="form-control" type="email" id="email" onChange={ this.handleChange } />
+                        <input className="form-control" type="email" id="email" autoComplete="on" onChange={ this.handleChange } />
                     </div>
                     <div className="form-group col-md-10 offset-md-1">
                         <label htmlFor="password">Password</label>
-                        <input className="form-control" type="password" id="password" onChange={ this.handleChange } />
+                        <input className="form-control" type="password" id="password" autoComplete="on" onChange={ this.handleChange } />
                     </div>
                     <Link className="text-center" to="/resetPassword"><p>Forgoten Password?</p></Link>
                     <div className="form-group text-center">

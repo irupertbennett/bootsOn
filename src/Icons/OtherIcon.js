@@ -3,7 +3,7 @@ import React from 'react'
 const HikerIcon = () => {
     
     return (
-        <td><i className="fas fa-bicycle fa-2x"></i></td>
+        <td><i className="fas fa-ellipsis-h"></i></td>
     )
 }
 

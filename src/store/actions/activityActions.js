@@ -1,4 +1,4 @@
-export const createActivity = (activity) => {
+export const logActivity = (activity) => {
     return (dispatch, getState, { getFirestore }) => {
         const firestore = getFirestore();
         const profile = getState().firebase.profile

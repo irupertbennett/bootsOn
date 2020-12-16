@@ -7,7 +7,7 @@ import profile from './components/Profile';
 import Navbar from './components/Navbar';
 import log from './components/Log';
 import resetPassword from './components/auth/ResetPassword';
-import CreateActivity from './components/CreateActivity';
+import LogActivity from './components/LogActivity';
 import Home from './components/Home';
 import Gear from './components/Gear';
 import Backpack from './components/Backpack';
@@ -26,6 +26,11 @@ import PhotoEditor from './components/PhotoEditor';
 import withSplashScreen from './components/withSplashScreen'
 
 function App() {
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('../sw.js')
+      .then(reg => console.log('service worker registered'))
+      .catch(err => console.log('service worker not registered', err));
+  }
   return (
     <BrowserRouter>
       <header>
@@ -40,7 +45,7 @@ function App() {
             <Route path='/log' component={ log }></Route>
             <Route path='/account' component={ profile }></Route>
             <Route path='/resetPassword' component={ resetPassword }></Route>
-            <Route path='/logActivity' component={ CreateActivity }></Route>
+            <Route path='/logActivity' component={ LogActivity }></Route>
             <Route path='/signIn' component={ SignIn }></Route>
             <Route path='/backpack' component={ Backpack }></Route>
             <Route path='/backpackv2' component={ Backpack_V2 }></Route>
